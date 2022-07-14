@@ -1,0 +1,11 @@
+Model Information:
+* title:	Radio
+* source:	https://sketchfab.com/3d-models/radio-d21d6bf783154170bfa6dc7ce0a208f1
+* author:	TraianDumbrava (https://sketchfab.com/TraianDumbrava)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Radio" (https://sketchfab.com/3d-models/radio-d21d6bf783154170bfa6dc7ce0a208f1) by TraianDumbrava (https://sketchfab.com/TraianDumbrava) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

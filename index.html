@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tjaljaking masalu</title>
+    <meta charset="utf-8" name="description" content="" />
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1f00d0beadf87bad7d275c174616e048f8b573fc/dist/aframe-master.min.js"></script>
+    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-text-geometry-component@0.5.1/dist/aframe-text-geometry-component.min.js"></script>
+    <script src="./js/aframe-room-component.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/colinfizgig/aframe_Components/components/camera-cube-env.js"></script>
+    <script src="./js/showInfo.js"></script>
+    <script src="./js/sound.js"></script>
+  </head>
+  <body>
+    <!-- inspector-plugin-recast	來自不會穿牆的套件  -->
+    <a-scene background="color: #B6B6B6" inspector-plugin-recast>
+      <a-asset>
+        <!-- <img id="mainpost-src" src="./assets/images/alexandra-unsplash.jpg" /> -->
+        <!-- <img id="greenocean-img-src" src="./assets/images/tjaljaking/07.jpeg" /> -->
+        <!-- <img id="ocean-img-src" src="./assets/images/tjaljaking/06.jpeg" /> -->
+        <!-- <img id="mountain-img-src" src="./assets/images/tjaljaking/01.jpeg" /> -->
+        <!-- 音訊來源 賽嘉歌謠 ----------------------------------------------------------->
+        <audio
+          id="bg-music"
+          src="./assets/sound/masalu.mp3"
+          preload="true"
+        ></audio>
+        <!-- 照片來源 主視覺 ------------------------------------------------------------->
+        <img
+          id="mainpost-src"
+          src="./assets/images/tjaljaking/post/postmain.png"
+        />
+        <img
+          id="mainposttext-src"
+          src="./assets/images/tjaljaking/post/mianposttext.png"
+        />
+
+        <!-- 照片來源 早期收穫祭場景   ------------------------------------------------------>
+        <img
+          id="oldmasalut-img-src"
+          src="./assets/images/oldmasalut/oldmasalut.png"
+        />
+
+        <!-- 照片來源 九一國小正名 -------------------------------------------------------->
+        <img id="91-img-src" src="./assets/images/tjaljaking/91/91.png" />
+        <img
+          id="binibin-img-src"
+          src="./assets/images/tjaljaking/binbin/binbin.png"
+        />
+        <!-- 照片來源 早期生活場景  ------------------------------------------------------>
+
+        <img
+          id="oldlife-img-src"
+          src="./assets/images/tjaljaking/oldlife/oldlife.png"
+        />
+
+        <!--textures 來源 -------------------------------------------------------------->
+
+        <img
+          id="floortexture"
+          src="./assets/textures/marble/TexturesCom_ConcreteBunker0136_1_seamless_S-2.jpg"
+        />
+        <img
+          id="walltexture"
+          src="./assets/textures/marble/TexturesCom_ConcreteBunker0136_1_seamless_S-2.jpg"
+        />
+
+        <!-- models 來源 ------------------------------------------------------------->
+        <a-asset-item
+          id="bench"
+          src="./assets/model/novel_double_bench/scene.gltf"
+        >
+        </a-asset-item>
+        <a-asset-item
+          id="bench2"
+          src="./assets/model/concrete_bench/scene.gltf"
+        >
+        </a-asset-item>
+        <a-asset-item id="radio" src="./assets/model/radio/scene.gltf">
+        </a-asset-item>
+        <a-asset-item id="nav" src="./assets/model/navmesh.gltf"></a-asset-item>
+
+        <!--  spot light 模組 -------------------------------------------------------->
+        <a-mixin
+          id="spot-light"
+          light="type:spot;
+						color:#E5D5A4;
+						intensity:0.2;
+						penumbra:1;
+						angle:15;"
+        >
+        </a-mixin>
+
+        <!--  動畫旋轉模組     -------------------------------------------------------->
+        <a-mixin
+          id="animation__rotation"
+          animation__rotation="
+          property:rotation; 
+          dur:3000;
+          loop:true; 
+          to: 0 360 0; "
+        >
+        </a-mixin>
+      </a-asset>
+
+      <!--  賽嘉古調歌曲 -------------------------------------------------------------->
+
+      <a-sound src="#bg-music" firstsound></a-sound>
+
+      <!--  限制走動範圍 model -------------------------------------------------------->
+
+      <a-gltf-model src="#nav" nav-mesh visible="false"> </a-gltf-model>
+
+      <!--  場景光線設定 -------------------------------------------------------------->
+      <a-light
+        id="dir"
+        position="-1 2 -2"
+        type="directional"
+        color="white"
+        intensity="0.1"
+        light="cast-shadow:true"
+      >
+      </a-light>
+      <a-light
+        id="hemi"
+        type="hemisphere"
+        color="#FFFFFF"
+        position="0 11 -2"
+        intensity="0.9"
+      >
+      </a-light>
+
+      <!-- 相片打燈 spot light -------------------------------------------------------->
+      <a-entity
+        id="spot-snow"
+        mixin="spot-light"
+        position="-3 6 0"
+        light="target:#mainpost"
+      >
+      </a-entity>
+      <a-entity
+        id="spot-91"
+        mixin="spot-light"
+        position="-1 6 4"
+        light="target:#91-img;
+					cast-shadow:true"
+      >
+      </a-entity>
+      <a-entity
+        id="spot-ocean"
+        mixin="spot-light"
+        position="5 6 -2"
+        light="target:#oldlife-img;"
+      >
+      </a-entity>
+      <a-entity
+        id="spot-oldmasalut"
+        mixin="spot-light"
+        position="2.527 1.094 7.687"
+        light="target:#oldmasalut-img;"
+      >
+      </a-entity>
+      <a-entity
+        id="spot-helmet"
+        mixin="spot-light"
+        position="2.5 3 -7.5"
+        light="target:#helmet-model;
+					cast-shadow:true"
+      >
+      </a-entity>
+
+      <!-- 房間 rooms  --------------------------------------------------------------->
+
+      <rw-room
+        id="main-room"
+        length="12"
+        width="16"
+        height="6"
+        position="-5 0 -5"
+      >
+        <rw-wall
+          position="2 0 0"
+          material="src:#walltexture;  metalness:0.3;   repeat:0.1 0.1;"
+          wall
+          rotation
+        >
+          <!-- door-main -->
+          <rw-doorhole id="door-main"> </rw-doorhole>
+          <rw-doorlink
+            from="#door-main"
+            to="#door-second"
+            material="color:#CCC"
+            position="1.7 0 0"
+            width="1.8"
+            height="3"
+          >
+            <rw-sides></rw-sides>
+            <rw-ceiling></rw-ceiling>
+          </rw-doorlink>
+        </rw-wall>
+        <rw-wall
+          material="src:#walltexture; metalness:0.5;   repeat:0.1 0.2; roughness:2;"
+          wall
+          rotation
+        >
+        </rw-wall>
+        <rw-wall
+          material="src:#walltexture; metalness:0.2;  repeat: 0.1 0.2; roughness:2;"
+          wall
+          rotation
+        >
+        </rw-wall>
+        <rw-wall
+          material="src:#walltexture;  repeat:0.1 0.2; roughness:2;"
+          wall
+          rotation
+        >
+        </rw-wall>
+      </rw-room>
+      <rw-room
+        id="second-room"
+        material="color:white"
+        length="5"
+        width="12"
+        height="6"
+        position="-5 0 -10.2"
+      >
+        <rw-wall
+          material="src:#walltexture;  metalness:0.1;   repeat:0.1 0.1;"
+        ></rw-wall>
+        <rw-wall
+          material="src:#walltexture;  metalness:0.3;   repeat:0.1 0.1;"
+        ></rw-wall>
+        <rw-wall material="src:#walltexture;  metalness:0.3;   repeat:0.1 0.1;">
+          <rw-doorhole id="door-second" height="4"> </rw-doorhole>
+        </rw-wall>
+        <rw-wall></rw-wall>
+      </rw-room>
+
+      <!-- 展間地板  ------------------------------------------------------------------>
+
+      <a-plane
+        id="floor"
+        rotation="-90 0 0"
+        width="30"
+        height="45"
+        src="#floortexture"
+        material="repeat: 3 3; metalness:0.25; roughness:2"
+        shadow
+      >
+      </a-plane>
+
+      <!-- 主視覺 title --------------------------------------------------------------->
+      <!-- 主視覺 text  --------------------------------------------------------------->
+      <!-- 九一   title --------------------------------------------------------------->
+      <!-- 九一   text  --------------------------------------------------------------->
+      <!-- 早期收穫祭 title ------------------------------------------------------------>
+      <!-- 早期收穫祭 text ------------------------------------------------------------->
+
+      <!-- 照片牆展台      ------------------------------------------------------------->
+
+      <a-box
+        position="6.255 0.797 1.447"
+        color="#ccc"
+        width="2"
+        height="0.8"
+        depth="5"
+        shadow
+      ></a-box>
+
+      <a-image
+        position="6.245 1.23 1.451"
+        width="4.5"
+        height="2.2"
+        rotation="89.835 -62.72 -153.0"
+        scale="1.021 0.847 0.716"
+        src="#binibin-img-src"
+        shadow
+      >
+      </a-image>
+
+      <!-- 3D物件實體   ---------------------------------------------------------------->
+
+      <a-gltf-model
+        id="radiomodel"
+        mixin="animation__rotation"
+        position="6.255 1.28 1.447"
+        scale="0.003 0.003 0.003"
+        rotation="0 45 0"
+        src="#radio"
+        camera-cube-env="distance: 100000; 
+    resolution: 64"
+        shadow
+        material=" metalness:-1; roughness:2"
+      >
+      </a-gltf-model>
+      <a-gltf-model
+        id="bench-model2"
+        position="2.286 0.041 1.75"
+        scale="0.02 0.02 0.02"
+        rotation="0 -45 0"
+        src="#bench2"
+        camera-cube-env="distance: 100000; 
+        resolution: 64"
+        shadow
+        material=" metalness:-1; roughness:2"
+      >
+      </a-gltf-model>
+      <a-gltf-model
+        id="bench-model"
+        position="3.108 0.027 -0.415"
+        scale="0.02 0.02 0.02"
+        rotation="0 134.86 0"
+        src="#bench2"
+        camera-cube-env="distance: 100000; 
+      resolution: 64"
+        shadow
+      >
+      </a-gltf-model>
+
+      <!-- 照片實體位置   -------------------------------------------------------------->
+      <!-- 主視覺 -->
+      <a-box
+        id="mainpostbox"
+        position="-4.99 3 -1"
+        rotation="0 90 0"
+        depth="0.1"
+        height="4.1"
+        width="5"
+        material="src:#walltexture; metalness:0.45;   repeat:1 1; roughness:2;"
+        shadow
+      >
+        <a-image
+          id="mainpost"
+          position="0 0 0.09"
+          height="4"
+          width="4.9"
+          opacity="0.9"
+          src="#mainpost-src"
+          material="shader:standard"
+        >
+        </a-image>
+      </a-box>
+
+      <a-image
+        src="#mainposttext-src"
+        height="2"
+        width="3.5"
+        position="-4.99 2 4"
+        rotation="0 90 0"
+      ></a-image>
+
+      <!-- 過去收穫祭 -->
+      <a-image
+        position="10.8 2.8 1"
+        id="oldmasalut-img"
+        rotation="0 -90 0"
+        height="3"
+        width="11"
+        src="#oldmasalut-img-src"
+        material="shader:standard"
+      >
+      </a-image>
+
+      <a-image
+        id="91-img"
+        position="2.8 2.5 6.9"
+        rotation="0 180 0"
+        height="3"
+        width="15"
+        src="#91-img-src"
+        material="shader:standard"
+        shadow
+      >
+      </a-image>
+
+      <a-image
+        id="oldlife-img"
+        position="4.3 2.6 -4.769"
+        rotation="0 -180 0"
+        scale="0.885 1.204 1.000"
+        height="3"
+        width="15"
+        src="#oldlife-img-src"
+        material="shader:standard"
+        shadow
+      >
+      </a-image>
+
+      <!-- </a-box> -->
+
+      <!-- 
+			 a-camera 內建設定相機 : 請設定在最後面
+			 position 設定相機的起始位置
+			 fov	    設定相機的視線角度範圍，預設是 80 fov="80" 是給 vr的觀看 ， 45 度 適合網頁觀看 不會變形
+			 far      設定相機最遠可以照到哪裡
+			 near     設定最近可以看到哪裡
+			
+			-->
+      <!-- <a-camera position="0 1.6 5" fov="80" far="1000" near="0.1"></a-camera> -->
+
+      <!-- 可以支援相機前後左右移動的套件 
+				look-controls 可以根據人的方向移動
+				movement-controls    aframe-extras 套件提供可以根據各個裝置，前後走動
+			-->
+      <!-- 
+				a-cursor 網頁中的準心，會出現一個點
+				cursor="rayOrigin: mouse;" 以網頁中的滑鼠，當作點擊的目標，需要使用滑鼠點擊可以這樣設定。 
+				raycaster="objects: .interactable" cursor 可以互動的物件 指定 class name，並且要掛在互動的物件上面 也要掛上相同的 class name 
+				visible="false" 預設關閉物件 
+			-->
+
+      <!-- 資訊彈跳視窗   -------------------------------------------------------------->
+
+      <!-- <a-entity
+        id="rig"
+        position="0 0 5"
+        movement-controls="constrainToNavMesh: true"
+      >
+        <a-entity camera position="0 1.6 0" look-controls>
+          <a-entity
+            cursor="rayOrigin: mouse;"
+            raycaster="objects: .interactable"
+          ></a-entity>
+          <a-plane
+            id="infocard"
+            position="0 0 -0.1"
+            color="black"
+            opacity="0.7"
+            visible="false"
+          >
+            <a-plane
+              position="0 0 0.01"
+              color="white "
+              width="0.07"
+              height="0.1"
+            >
+              <a-text
+                id="title"
+                value="title..."
+                width="0.1"
+                position="-0.0257 0.022 0.01"
+                shader="msdf"
+                font="https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/oswald/Oswald-Regular.json"
+              >
+              </a-text>
+
+              <a-text
+                id="content"
+                value="content...."
+                wrap-count="30"
+                width="0.03"
+                position="-0.025 0.02 0.01"
+                align="left"
+                color="black "
+                shader="msdf"
+                font="https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/oswald/Oswald-Regular.json"
+              >
+              </a-text>
+            </a-plane>
+          </a-plane>
+        </a-entity>
+      </a-entity> -->
+    </a-scene>
+  </body>
+
+  <!-- <script src="https://unpkg.com/aframe-text-geometry-component@0.5.1/dist/aframe-text-geometry-component.min.js"></script> -->
+</html>
